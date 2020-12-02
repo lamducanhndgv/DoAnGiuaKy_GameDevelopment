@@ -41,16 +41,16 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
         if (!ok(eventData) || isIcon) return;
 
-        float detal = 50;
+        float detal = 70f;
 
-        if (r.anchoredPosition.y >= ContentSpace.instance.MyRect.sizeDelta.y -detal)
-            ContentSpace.instance.setSize(ContentSpace.DIRECTION.UP,r);
-        else if (r.anchoredPosition.y <= 0 + detal)
-            ContentSpace.instance.setSize(ContentSpace.DIRECTION.DOWN,r);
-        else if (r.anchoredPosition.x >= ContentSpace.instance.MyRect.sizeDelta.x - detal)
-            ContentSpace.instance.setSize(ContentSpace.DIRECTION.RIGHT,r);
-        else if (r.anchoredPosition.x <= 0 + detal)
-            ContentSpace.instance.setSize(ContentSpace.DIRECTION.LEFT,r);
+        if (r.anchoredPosition.y >= ContentSpace.instance.MyRect.sizeDelta.y/2 - detal)
+            ContentSpace.instance.setSize(ContentSpace.DIRECTION.UP, r);
+        else if (r.anchoredPosition.y <= -ContentSpace.instance.MyRect.sizeDelta.y / 2 + detal)
+            ContentSpace.instance.setSize(ContentSpace.DIRECTION.DOWN, r);
+        else if (r.anchoredPosition.x >= ContentSpace.instance.MyRect.sizeDelta.x/2 - detal)
+            ContentSpace.instance.setSize(ContentSpace.DIRECTION.RIGHT, r);
+        else if (r.anchoredPosition.x <= -ContentSpace.instance.MyRect.sizeDelta.x / 2 + detal)
+            ContentSpace.instance.setSize(ContentSpace.DIRECTION.LEFT, r);
 
     }
 
@@ -80,13 +80,21 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             item.tag = myTag;
             item.transform.GetChild(0).tag = myTag;
             RectTransform rec = item.GetComponent<RectTransform>();
+            rec.anchorMin = new Vector2(0.5f, .5f);
+            rec.anchorMax = new Vector2(0.5f, .5f);
             rec.SetParent(ContentSpace.instance.transform);
         }
     }
 
 
     private bool ok(PointerEventData eventData) {
-
-         return eventData.pointerCurrentRaycast.gameObject.CompareTag(myTag);  
+        bool hl = true;
+        try
+        {
+            hl = eventData.pointerCurrentRaycast.gameObject.CompareTag(myTag);
+        } catch (Exception e) {
+            hl = false;
+        }
+        return hl;
     }
 }

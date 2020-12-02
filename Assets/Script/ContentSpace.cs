@@ -33,6 +33,10 @@ public class ContentSpace : MonoBehaviour
     {
         MyRect.anchoredPosition = Vector2.zero;
         DefaultSize = MyRect.sizeDelta;
+
+        RectTransform si = MyRect.transform.parent.parent.GetComponent<RectTransform>();
+        MyRect.sizeDelta =  new Vector2( si.rect.width,si.rect.height);
+       // print(new Vector2( si.rect.xMax,si.rect.yMax));
     }
 
     public void setSize(DIRECTION d, RectTransform re) {
@@ -40,22 +44,20 @@ public class ContentSpace : MonoBehaviour
         if (d == DIRECTION.UP) {
             re.SetParent(canvas.transform);
             MyRect.sizeDelta = new Vector2(MyRect.sizeDelta.x, MyRect.sizeDelta.y + delta);
-            VerticalScrollbar.value = 1;
             re.SetParent(MyRect);
-
         }
         else if (d == DIRECTION.DOWN)
         {
             re.SetParent(canvas.transform);
             MyRect.sizeDelta = new Vector2(MyRect.sizeDelta.x, MyRect.sizeDelta.y + delta);
-            re.SetParent(MyRect);
-            VerticalScrollbar.value = 0;
+            re.SetParent(MyRect);   
         }
 
         else if (d == DIRECTION.LEFT)
         {
             re.SetParent(canvas.transform);
             MyRect.sizeDelta = new Vector2(MyRect.sizeDelta.x + delta, MyRect.sizeDelta.y);
+            
             re.SetParent(MyRect);
         }
         else if (d == DIRECTION.RIGHT)
