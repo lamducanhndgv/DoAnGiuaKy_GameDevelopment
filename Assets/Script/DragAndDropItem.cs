@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-
-
     private RectTransform rect;
     public bool isIcon = false;
     public string myTag = "SpaceGroup";
@@ -20,6 +18,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     {
         Rect = GetComponent<RectTransform>();
     }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
 
