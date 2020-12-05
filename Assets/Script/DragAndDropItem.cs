@@ -13,12 +13,16 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     public string myTag = "SpaceGroup";
 
     private DragAndDropItem item;
-    
+
+    public lr_LineController lr;
     public RectTransform Rect { get => rect; set => rect = value; }
+
+    private Component parent;
 
     private void Awake()
     {
         Rect = GetComponent<RectTransform>();
+        parent = GetComponentInParent<ContentSpace>();
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -70,7 +74,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            Debug.Log("Right mouse Button Clicked on: " + name);
+            this.HandleRightClick();
         }
         
 
@@ -83,11 +87,39 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             item.isIcon = false;
             item.tag = myTag;
             item.transform.GetChild(0).tag = myTag;
+
             RectTransform rec = item.GetComponent<RectTransform>();
+
             rec.anchorMin = new Vector2(0.5f, .5f);
             rec.anchorMax = new Vector2(0.5f, .5f);
             rec.SetParent(ContentSpace.instance.transform);
         }
+    }
+
+    private void HandleRightClick()
+    {
+        Debug.Log("Right mouse Button Clicked on: " + name);
+
+        if (StateManager.Instance.connectStateClick)
+        {
+            Debug.Log("Create LineRenderer");
+
+            GameObject line = new GameObject("newline");
+
+            line.AddComponent<LineRenderer>();
+            line.AddComponent<lr_LineController>();
+            line.AddComponent<RectTransform>();
+
+            line.transform.SetParent(this.transform);
+        
+            Debug.Log("Connect to object");
+        }
+        else
+        {
+            Debug.Log("Activate connect 2 boxes state");
+        }
+
+        StateManager.Instance.connectStateClick = !StateManager.Instance.connectStateClick;
     }
 
 

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class lr_LineController : MonoBehaviour
-{ 
+{
     private LineRenderer lr;
     private Transform[] points;
 
     private void Awake()
     {
         lr = GetComponent<LineRenderer>();
+        points = null;
     }
 
 
@@ -32,6 +33,9 @@ public class lr_LineController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (points == null || points.Length == 0)
+            return;
+
         for (int i = 0; i < points.Length; i++)
         {
             Vector3 vec = new Vector3(points[i].transform.localPosition.x, points[i].transform.localPosition.y);
