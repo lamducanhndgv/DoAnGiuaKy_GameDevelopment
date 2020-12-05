@@ -8,7 +8,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 {
     public static int count=0;
 
-    public List<int> children = new List<int>();
+    public List<DragAndDropItem> children = new List<DragAndDropItem>();
 
     private RectTransform rect;
     public bool isIcon = false;
@@ -112,6 +112,8 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     {
         Debug.Log("Right mouse Button Clicked on: " + name);
 
+        Helpers.waitingVertices.Push(this);
+
         if (StateManager.Instance.connectStateClick)
         {
             Debug.Log("Create LineRenderer");
@@ -130,6 +132,8 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             StateManager.Instance.CreateLine(line, this.transform);
 
             Debug.Log("Connect to object");
+
+            Helpers.Connect();
         }
         else
         {

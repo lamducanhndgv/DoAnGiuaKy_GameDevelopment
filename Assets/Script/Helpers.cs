@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Helpers : MonoBehaviour
+public static class Helpers
 {
-    // Start is called before the first frame update
-    void Start()
+    public static Stack<DragAndDropItem> waitingVertices = new Stack<DragAndDropItem>();
+    public static void Connect() 
     {
-        
-    }
+        DragAndDropItem parent = waitingVertices.Pop();
+        DragAndDropItem child = waitingVertices.Pop();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log("connected: " + parent.id + " -> " + child.id);
+        parent.children.Add(child);
     }
 }
