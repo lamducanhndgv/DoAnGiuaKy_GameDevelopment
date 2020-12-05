@@ -68,6 +68,10 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            Debug.Log("Right mouse Button Clicked on: " + name);
+        }
         
 
 
