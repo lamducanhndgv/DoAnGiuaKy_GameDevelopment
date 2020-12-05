@@ -112,36 +112,39 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     {
         Debug.Log("Right mouse Button Clicked on: " + name);
 
-        Helpers.waitingVertices.Push(this);
-
-        if (StateManager.Instance.connectStateClick)
+        if (id != 0)
         {
-            Debug.Log("Create LineRenderer");
+            Helpers.waitingVertices.Push(this);
 
-            GameObject line = new GameObject("newline");
+            if (StateManager.Instance.connectStateClick)
+            {
+                Debug.Log("Create LineRenderer");
 
-            line.AddComponent<LineRenderer>();
-            line.AddComponent<lr_LineController>();
-            line.AddComponent<RectTransform>();
+                GameObject line = new GameObject("newline");
 
-            line.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-            line.GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f); 
+                line.AddComponent<LineRenderer>();
+                line.AddComponent<lr_LineController>();
+                line.AddComponent<RectTransform>();
 
-            // line.transform.SetParent(this.transform);
+                line.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+                line.GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f);
 
-            StateManager.Instance.CreateLine(line, this.transform);
+                // line.transform.SetParent(this.transform);
 
-            Debug.Log("Connect to object");
+                StateManager.Instance.CreateLine(line, this.transform);
 
-            Helpers.Connect();
+                Debug.Log("Connect to object");
+
+                Helpers.Connect();
+            }
+            else
+            {
+                StateManager.Instance.SetLastPoint(this.transform);
+                Debug.Log("Activate connect 2 boxes state");
+            }
+
+            StateManager.Instance.connectStateClick = !StateManager.Instance.connectStateClick;
         }
-        else
-        {
-            StateManager.Instance.SetLastPoint(this.transform);
-            Debug.Log("Activate connect 2 boxes state");
-        }
-
-        StateManager.Instance.connectStateClick = !StateManager.Instance.connectStateClick;
     }
 
 
