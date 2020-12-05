@@ -6,9 +6,15 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public static int count=0;
+
+    public List<int> children = new List<int>();
+
     private RectTransform rect;
     public bool isIcon = false;
     public string myTag = "SpaceGroup";
+
+    public int id;
 
     private DragAndDropItem item;
     
@@ -70,15 +76,14 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             Debug.Log("Right mouse Button Clicked on: " + name);
+            Debug.Log("Right mouse Button Clicked on id: " + id);
         }
-        
-
-
 
         //// Di chuyen
         if (isIcon)
         {
             item = Instantiate(this, rect, false);
+            item.id = ++DragAndDropItem.count;
             item.isIcon = false;
             item.tag = myTag;
             item.transform.GetChild(0).tag = myTag;
@@ -88,7 +93,6 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             rec.SetParent(ContentSpace.instance.transform);
         }
     }
-
 
     private bool ok(PointerEventData eventData) {
         bool hl = true;
