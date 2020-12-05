@@ -114,10 +114,22 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
         if (id != 0)
         {
-            Helpers.waitingVertices.Push(this);
+            LineHelper.waitingVertices.Push(this);
 
             if (StateManager.Instance.connectStateClick)
             {
+                if(LineHelper.IsConnected())
+                {
+                    Debug.Log("Line existed");
+
+                    StateManager.Instance.SetLastPoint(null);
+                    StateManager.Instance.connectStateClick = !StateManager.Instance.connectStateClick;
+
+                    LineHelper.Cancel();
+
+                    return;
+                }
+
                 Debug.Log("Create LineRenderer");
 
                 GameObject line = new GameObject("newline");
@@ -135,7 +147,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
                 Debug.Log("Connect to object");
 
-                Helpers.Connect();
+                LineHelper.Connect();
             }
             else
             {
@@ -146,7 +158,6 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             StateManager.Instance.connectStateClick = !StateManager.Instance.connectStateClick;
         }
     }
-
 
     private bool ok(PointerEventData eventData) {
         bool hl = true;
