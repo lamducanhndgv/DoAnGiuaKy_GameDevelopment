@@ -90,6 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isIcon: 0
   myTag: SpaceGroup
+  lr: {fileID: 0}
 --- !u!1 &8975611623410878679
 GameObject:
   m_ObjectHideFlags: 0
