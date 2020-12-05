@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class lr_LineController : MonoBehaviour
 {
-    private LineRenderer lr;
+    public LineRenderer lr;
     private Transform[] points;
 
     private void Awake()
@@ -38,7 +38,7 @@ public class lr_LineController : MonoBehaviour
 
         for (int i = 0; i < points.Length; i++)
         {
-            Vector3 vec = new Vector3(points[i].transform.localPosition.x, points[i].transform.localPosition.y);
+            Vector3 vec = new Vector3(points[i].position.x, points[i].position.y);
             lr.SetPosition(i, vec);
         }
     }

@@ -8,11 +8,25 @@ public class StateManager : MonoBehaviour
 
     public bool connectStateClick;
 
+    private Transform prev;
+
+    
 
     private void Awake()
     {
         Instance = this;
         this.connectStateClick = false;
+    }
+
+    public void SetLastPoint(Transform p)
+    {
+        prev = p;
+    }
+
+    public void CreateLine(GameObject line, Transform to)
+    {
+        print(to);
+        line.GetComponent<lr_LineController>().SetUpLine(new Transform[]{prev, to});
     }
 
 

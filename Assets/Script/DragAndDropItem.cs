@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-
-
     private RectTransform rect;
     public bool isIcon = false;
     public string myTag = "SpaceGroup";
@@ -19,11 +17,15 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
     private Component parent;
 
+    // Class -> dictionary <string, string> 
+
+
     private void Awake()
     {
         Rect = GetComponent<RectTransform>();
         parent = GetComponentInParent<ContentSpace>();
     }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
 
@@ -76,6 +78,11 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         {
             this.HandleRightClick();
         }
+
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            
+        }
         
 
 
@@ -110,12 +117,18 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             line.AddComponent<lr_LineController>();
             line.AddComponent<RectTransform>();
 
-            line.transform.SetParent(this.transform);
-        
+            line.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            line.GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f); 
+
+            // line.transform.SetParent(this.transform);
+
+            StateManager.Instance.CreateLine(line, this.transform);
+
             Debug.Log("Connect to object");
         }
         else
         {
+            StateManager.Instance.SetLastPoint(this.transform);
             Debug.Log("Activate connect 2 boxes state");
         }
 

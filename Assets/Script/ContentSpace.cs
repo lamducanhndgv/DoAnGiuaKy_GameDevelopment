@@ -36,7 +36,7 @@ public class ContentSpace : MonoBehaviour
 
         RectTransform si = MyRect.transform.parent.parent.GetComponent<RectTransform>();
         MyRect.sizeDelta =  new Vector2( si.rect.width,si.rect.height);
-       // print(new Vector2( si.rect.xMax,si.rect.yMax));
+
     }
 
     public void setSize(DIRECTION d, RectTransform re) {
