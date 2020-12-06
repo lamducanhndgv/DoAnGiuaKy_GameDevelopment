@@ -17,7 +17,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     public string myTag = "SpaceGroup";
 
     public int id;
-
+    private string laynerName;
     private DragAndDropItem item;
 
     public lr_LineController lr;
@@ -93,7 +93,14 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            
+            if (!isIcon)
+            {
+                Debug.Log("Left mouse clicked on clone obj");
+                Debug.Log(laynerName);
+                Popup popup = new Popup();
+                popup.initPopup(laynerName);
+            }
+
         }
         
 
@@ -102,10 +109,11 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         {
             item = Instantiate(this, rect, false);
             item.id = ++DragAndDropItem.count;
+            item.laynerName=(rect.name);
             item.isIcon = false;
             item.tag = myTag;
             item.transform.GetChild(0).tag = myTag;
-
+            
             RectTransform rec = item.GetComponent<RectTransform>();
 
             rec.anchorMin = new Vector2(0.5f, .5f);
