@@ -111,6 +111,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
     public void OnDestroy()
     {
+        Graph.node.Remove(this);
         ancestor.children = null;
         children.ancestor = null;
     }
