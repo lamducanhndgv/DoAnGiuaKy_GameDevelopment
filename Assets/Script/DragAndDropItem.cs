@@ -9,7 +9,8 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 {
     public static int count=0;
 
-    public List<int> children = new List<int>();
+    public DragAndDropItem children;
+    public DragAndDropItem ancestor;
 
     private RectTransform rect;
     public bool isIcon = false;
@@ -113,38 +114,61 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         }
     }
 
+    public void OnDestroy()
+    {
+        Graph.node.Remove(this);
+        ancestor.children = null;
+        children.ancestor = null;
+    }
+
     private void HandleRightClick()
     {
         Debug.Log("Right mouse Button Clicked on: " + name);
 
-        if (StateManager.Instance.connectStateClick)
+        if (id != 0)
         {
-            Debug.Log("Create LineRenderer");
+            if (StateManager.Instance.connectStateClick)
+            {
+                LineHelper.second = this;
 
-            GameObject line = new GameObject("newline");
+                if(!LineHelper.IsOk())
+                {
+                    Debug.Log("Line existed");
+                    StateManager.Instance.Cancel();
+                    LineHelper.Cancel();
 
-            line.AddComponent<LineRenderer>();
-            line.AddComponent<lr_LineController>();
-            line.AddComponent<RectTransform>();
+                    return;
+                }
 
-            line.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-            line.GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f); 
+                Debug.Log("Create LineRenderer");
 
-            // line.transform.SetParent(this.transform);
+                GameObject line = new GameObject("newline");
 
-            StateManager.Instance.CreateLine(line, this.transform);
+                line.AddComponent<LineRenderer>();
+                line.AddComponent<lr_LineController>();
+                line.AddComponent<RectTransform>();
 
-            Debug.Log("Connect to object");
+                line.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+                line.GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f);
+
+                // line.transform.SetParent(this.transform);
+
+                StateManager.Instance.CreateLine(line, this.transform);
+
+                Debug.Log("Connect to object");
+
+                LineHelper.Connect();
+            }
+            else
+            {
+                LineHelper.first = this;
+                StateManager.Instance.SetLastPoint(this.transform);
+                Debug.Log("Activate connect 2 boxes state");
+            }
+
+            StateManager.Instance.connectStateClick = !StateManager.Instance.connectStateClick;
         }
-        else
-        {
-            StateManager.Instance.SetLastPoint(this.transform);
-            Debug.Log("Activate connect 2 boxes state");
-        }
-
-        StateManager.Instance.connectStateClick = !StateManager.Instance.connectStateClick;
     }
-
 
     private bool ok(PointerEventData eventData) {
         bool hl = true;
