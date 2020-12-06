@@ -8,7 +8,8 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 {
     public static int count=0;
 
-    public List<DragAndDropItem> children = new List<DragAndDropItem>();
+    public DragAndDropItem children;
+    public DragAndDropItem ancestor;
 
     private RectTransform rect;
     public bool isIcon = false;
@@ -108,23 +109,26 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         }
     }
 
+    public void OnDestroy()
+    {
+        ancestor.children = null;
+        children.ancestor = null;
+    }
+
     private void HandleRightClick()
     {
         Debug.Log("Right mouse Button Clicked on: " + name);
 
         if (id != 0)
         {
-            LineHelper.waitingVertices.Push(this);
-
             if (StateManager.Instance.connectStateClick)
             {
-                if(LineHelper.IsConnected())
+                LineHelper.second = this;
+
+                if(!LineHelper.IsOk())
                 {
                     Debug.Log("Line existed");
-
-                    StateManager.Instance.SetLastPoint(null);
-                    StateManager.Instance.connectStateClick = !StateManager.Instance.connectStateClick;
-
+                    StateManager.Instance.Cancel();
                     LineHelper.Cancel();
 
                     return;
@@ -151,6 +155,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             }
             else
             {
+                LineHelper.first = this;
                 StateManager.Instance.SetLastPoint(this.transform);
                 Debug.Log("Activate connect 2 boxes state");
             }

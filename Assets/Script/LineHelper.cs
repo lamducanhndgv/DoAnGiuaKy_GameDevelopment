@@ -4,37 +4,29 @@ using UnityEngine;
 
 public static class LineHelper
 {
-    public static Stack<DragAndDropItem> waitingVertices = new Stack<DragAndDropItem>();
+    public static DragAndDropItem first;
+    public static DragAndDropItem second;
+
     public static void Connect()
     {
-        DragAndDropItem parent = waitingVertices.Pop();
-        DragAndDropItem child = waitingVertices.Pop();
+        first.ancestor = second;
+        second.children = first;
+
+        Debug.Log("connected: " + second.id + " -> " + first.id);
 
         Cancel();
-
-        Debug.Log("connected: " + parent.id + " -> " + child.id);
-        parent.children.Add(child);
     }
     public static void Cancel()
     {
-        waitingVertices.Clear();
+        first = null;
+        second = null;
     }
 
-    public static bool IsConnected()
+    public static bool IsOk()
     {
-        DragAndDropItem item1 = waitingVertices.Pop();
-        DragAndDropItem item2 = waitingVertices.Pop();
+        if (first.children == second || second.children == first) return false;
+        if (first.ancestor != null || second.children != null) return false;
 
-        if(item1.children.Contains(item2) || item2.children.Contains(item1))
-        {
-            return true;
-        }
-        else
-        {
-            waitingVertices.Push(item2);
-            waitingVertices.Push(item1);
-
-            return false;
-        }
+        return true;
     }
 }

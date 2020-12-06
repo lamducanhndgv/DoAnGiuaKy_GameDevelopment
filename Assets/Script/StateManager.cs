@@ -24,4 +24,10 @@ public class StateManager : MonoBehaviour
         print(to);
         line.GetComponent<lr_LineController>().SetUpLine(new Transform[]{prev, to});
     }
+
+    public void Cancel()
+    {
+        prev = null;
+        connectStateClick = false;
+    }
 }
