@@ -1,12 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GenerateContent : MonoBehaviour
+
+public class Popup : MonoBehaviour
 {
-    public GameObject gameObject;
-    public string layerName;
+    public static Popup instance;
+    [SerializeField] Button _buttonClickOK;
+    [SerializeField] Button _buttonClickCancel;
+    [SerializeField] GameObject ContentToRender;
     static public Dictionary<string, string[]> listParamsEachString = new Dictionary<string, string[]>()
     {
         {"Recurrent",new string[]{"In_Chanels", "Out_Chanels"} },
@@ -17,10 +21,28 @@ public class GenerateContent : MonoBehaviour
         {"MaxPool2d",new string[]{"Kernel_size", "stride"} },
         {"DropDown",new string[]{ "p: float = 0.5","inplace: bool = False" } }
     };
-    // Start is called before the first frame update
-    void Start()
+
+    public void initPopup(string layerName)
     {
-        layerName = "Conv2D";
+        this.initInputField(layerName);
+
+        _buttonClickOK.onClick.AddListener(() =>
+        {
+            Debug.Log("OK Clicked");
+            GameObject.Destroy(this.gameObject);
+        });
+        _buttonClickCancel.onClick.AddListener(() =>
+        {
+            Debug.Log("Cancel Clicked");
+            GameObject.Destroy(this.gameObject);
+        });
+
+    }
+
+    private void initInputField(string layerName)
+    {
+        Debug.Log("ok");
+        layerName = "Conv1D";
         if (listParamsEachString.ContainsKey(layerName))
         {
             string[] list = listParamsEachString[layerName];
@@ -32,5 +54,4 @@ public class GenerateContent : MonoBehaviour
             }
         }
     }
-
 }

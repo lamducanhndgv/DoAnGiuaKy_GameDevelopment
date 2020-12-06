@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public static int count=0;
@@ -31,13 +32,17 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     {
         Rect = GetComponent<RectTransform>();
         parent = GetComponentInParent<ContentSpace>();
+        
     }
 
+    void Update()
+    {
+        
+    }
     public void OnBeginDrag(PointerEventData eventData)
     {
-
+        
     }
-
     public void OnDrag(PointerEventData eventData)
     {
         RectTransform r = null;
