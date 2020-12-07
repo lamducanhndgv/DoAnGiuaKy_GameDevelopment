@@ -89,7 +89,11 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     {
         if (isIcon)
         {
+<<<<<<< HEAD
             this._CreateLayer();
+=======
+
+>>>>>>> master
         }
         else
         {
