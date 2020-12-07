@@ -93,7 +93,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            
+
         }
         
 
