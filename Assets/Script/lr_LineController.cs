@@ -13,15 +13,6 @@ public class lr_LineController : MonoBehaviour
         points = null;
     }
 
-
-    public void SetUpLine(Transform[] points)
-    {
-        lr.positionCount = points.Length;
-        this.points = points;
-
-        UpdateLine();
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +23,7 @@ public class lr_LineController : MonoBehaviour
         rec.SetParent(ContentSpace.instance.transform);
     }
 
-    public void UpdateLine()
+    private void _UpdateLine()
     {
         if (points == null || points.Length == 0)
             return;
@@ -43,4 +34,24 @@ public class lr_LineController : MonoBehaviour
             lr.SetPosition(i, vec);
         }
     }
+
+
+    public void SetUpLine(Transform[] points)
+    {
+        lr.positionCount = points.Length;
+        this.points = points;
+        _UpdateLine();
+    }
+
+    public void UpdatePosition(Transform point, bool isFrom = false)
+    {
+        int index = isFrom ? 0 : 1;
+        this.points[index] = point;
+        this._UpdateLine();
+    } 
+    
+
+
+
+    
 }

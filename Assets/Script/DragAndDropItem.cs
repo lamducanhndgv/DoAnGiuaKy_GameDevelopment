@@ -64,7 +64,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         else if (r.anchoredPosition.x <= -ContentSpace.instance.MyRect.sizeDelta.x / 2 + delta)
             ContentSpace.instance.setSize(ContentSpace.DIRECTION.LEFT, r);
 
-         // StateManager.Instance.UpdateLine();
+        StateManager.Instance.UpdateLine(this);
     }
 
     public void OnEndDrag(PointerEventData eventData)
