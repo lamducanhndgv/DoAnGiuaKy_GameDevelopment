@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 8467126477308709828}
   - component: {fileID: 8467126477308709835}
   - component: {fileID: 8467126477308709834}
+  - component: {fileID: 1743010410135736062}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Popup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,6 +101,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1743010410135736062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8467126477308709833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f0b9c58b14434ee2993806a60a775a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonClickOK: {fileID: 8467126478083533966}
+  _buttonClickCancel: {fileID: 8467126477888237963}
+  layerName: 
 --- !u!1 &8467126477569076020
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +219,7 @@ GameObject:
   - component: {fileID: 8467126477888237956}
   - component: {fileID: 8467126477888237963}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonCancel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -322,7 +338,7 @@ GameObject:
   - component: {fileID: 8467126478083533967}
   - component: {fileID: 8467126478083533966}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonOK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -156,7 +156,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buttonClickOK: {fileID: 1283349426}
   _buttonClickCancel: {fileID: 354771571}
-  ContentToRender: {fileID: 768105480}
+  layerName: 
 --- !u!114 &1283349426 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8467126478083533966, guid: 509a587c66b474162b28567de7232c1e,
@@ -215,8 +215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a5e363c8443b4fdcbd0f2686cdaa48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonOK: {fileID: 0}
-  _buttonCancel: {fileID: 0}
 --- !u!1 &1488281902
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,5 +552,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1743010410135736062, guid: 509a587c66b474162b28567de7232c1e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 509a587c66b474162b28567de7232c1e, type: 3}

@@ -18,6 +18,8 @@ public class lr_LineController : MonoBehaviour
     {
         lr.positionCount = points.Length;
         this.points = points;
+
+        UpdateLine();
     }
 
     // Start is called before the first frame update
@@ -30,8 +32,7 @@ public class lr_LineController : MonoBehaviour
         rec.SetParent(ContentSpace.instance.transform);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateLine()
     {
         if (points == null || points.Length == 0)
             return;

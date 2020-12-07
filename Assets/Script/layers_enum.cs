@@ -5,6 +5,7 @@ namespace Constants
 {
     static class LayersConstants
     {
+        public static int INPUT = 0;
         public static int FULLY_CONNECTED = 1;
         public static int CONVOLUTIONAL1D = 2;
         public static int CONVOLUTIONAL2D = 3;
@@ -15,6 +16,7 @@ namespace Constants
 
         public static Dictionary<int, string> LAYER_NAMES = new Dictionary<int, string>()
         {
+            { INPUT, "Input" },
             { FULLY_CONNECTED, "Fully Connected" },
             { CONVOLUTIONAL1D, "Convolutional 1D" },
             { CONVOLUTIONAL2D, "Convolutional 2D" },
@@ -26,6 +28,7 @@ namespace Constants
 
         public static Dictionary<int, Color32> LAYER_COLORS = new Dictionary<int, Color32>()
         {
+            { INPUT, new Color32(57, 181, 74, 255) },
             { FULLY_CONNECTED, new Color32(0, 169, 157, 255) },
             { CONVOLUTIONAL1D, new Color32(237, 199, 10, 255) },
             { CONVOLUTIONAL2D, new Color32(0, 113, 188, 255) },

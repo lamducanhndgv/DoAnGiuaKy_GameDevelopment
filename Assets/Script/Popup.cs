@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 public class Popup : MonoBehaviour
 {
-    public static Popup instance;
-    [SerializeField] Button _buttonClickOK;
-    [SerializeField] Button _buttonClickCancel;
-    [SerializeField] GameObject ContentToRender;
+    public Button _buttonClickOK;
+    public Button _buttonClickCancel;
+
     public string layerName;
+
     static public Dictionary<string, string[]> listParamsEachString = new Dictionary<string, string[]>()
     {
         {"Recurrent",new string[]{"In_Chanels", "Out_Chanels"} },
@@ -24,17 +24,16 @@ public class Popup : MonoBehaviour
     };
     public void Start()
     {
-        initInputField(layerName);
+        // initInputField(layerName);
 
         _buttonClickOK.onClick.AddListener(() =>
         {
             Debug.Log("OK Clicked");
-            Destroy(this.gameObject);
         });
+
         _buttonClickCancel.onClick.AddListener(() =>
         {
             Debug.Log("Cancel Clicked");
-            Destroy(this.gameObject);
         });
     }
 
@@ -52,5 +51,10 @@ public class Popup : MonoBehaviour
                 it.GetComponentInChildren<Text>().text = val;
             }
         }
+    }
+
+    public static void CreatePopUp()
+    {
+
     }
 }

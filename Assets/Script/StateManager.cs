@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Constants;
 
 public class StateManager : MonoBehaviour
 {
@@ -24,6 +25,30 @@ public class StateManager : MonoBehaviour
         this.LayerLookUp = new Dictionary<string, GameObject>();  
     }
 
+    private void Start()
+    {
+        KeyValuePair<int, Color32> kv = new KeyValuePair<int, Color32>(
+                Constants.LayersConstants.INPUT,
+                Constants.LayersConstants.LAYER_COLORS[Constants.LayersConstants.INPUT]
+            );
+
+        DragAndDropItem item = GenerateLayers.Instance.CreateBox(kv, ContentSpace.instance.MyRect);
+
+        item.id = ++DragAndDropItem.count;
+        item.isIcon = false;
+        item.tag = DragAndDropItem.myTag;
+        item.transform.GetChild(0).tag = DragAndDropItem.myTag;
+
+        RectTransform rec = item.GetComponent<RectTransform>();
+        rec.anchorMin = new Vector2(0.5f, .5f);
+        rec.anchorMax = new Vector2(0.5f, .5f);
+        rec.SetParent(ContentSpace.instance.transform);
+
+        rec.anchoredPosition3D = new Vector3(0f, 200f, -10f);
+
+        StateManager.Instance.LayerLookUp[item.id.ToString()] = item.gameObject;
+    }
+
     private string _CreateKey(GameObject toObj)
     {
         DragAndDropItem from = prev.GetComponent<DragAndDropItem>();
@@ -35,8 +60,8 @@ public class StateManager : MonoBehaviour
     private string _MakeKeyString(int a, int b)
     {
         if (b > a)
-            return $"{a}-{b}";
-        return $"{b}-{a}";
+            return $"{b}-{a}";
+        return $"{a}-{b}";
     }
 
     private GameObject _ConstructLine(string name="undefined")
@@ -56,6 +81,7 @@ public class StateManager : MonoBehaviour
 
         line.transform.SetParent(ContentSpace.instance.transform);
 
+        rec.anchoredPosition3D = new Vector3(rec.anchoredPosition3D.x, rec.anchoredPosition3D.y, -10f);
         return line;
     }
     private void _RemoveLine(DragAndDropItem layer)
@@ -89,12 +115,12 @@ public class StateManager : MonoBehaviour
     {
         string key = _CreateKey(to);
 
-        GameObject line = this._ConstructLine($"LINE({key})");
+        GameObject line = this._ConstructLine($"LINE({key})"); 
         
         if (from)
             line.GetComponent<lr_LineController>().SetUpLine(new Transform[]{from.transform, to.transform});
         else
-            line.GetComponent<lr_LineController>().SetUpLine(new Transform[] { prev.transform, to.transform });
+            line.GetComponent<lr_LineController>().SetUpLine(new Transform[]{prev.transform, to.transform });
 
         this.LineLookUp[key] = line;
     }
@@ -108,9 +134,20 @@ public class StateManager : MonoBehaviour
 
 
     
-    public void UpdateLine()
+    public void UpdateLine(DragAndDropItem layer)
     {
+        string key;
 
+        if (layer.ancestor != null)
+        {
+            key = this._MakeKeyString(layer.id, layer.ancestor.id);
+            
+        }
+
+        if (layer.children != null)
+        {
+            key = this._MakeKeyString(layer.id, layer.children.id);
+        }
     }
 
     public void Cancel()
