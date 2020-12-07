@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public static int count = 0;
 
-    public List<int> children = new List<int>();
+    public DragAndDropItem children;
+    public DragAndDropItem ancestor;
 
     private RectTransform rect;
     public bool isIcon = false;
@@ -25,13 +27,18 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     private void Awake()
     {
         Rect = GetComponent<RectTransform>();
+        parent = GetComponentInParent<ContentSpace>();
+        
     }
 
+    void Update()
+    {
+        
+    }
     public void OnBeginDrag(PointerEventData eventData)
     {
-
+        
     }
-
     public void OnDrag(PointerEventData eventData)
     {
         RectTransform r = null;
@@ -99,24 +106,41 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         }
     }
 
-    private void _HandleRightClick()
+    public void OnDestroy()
+    {
+        Graph.node.Remove(this);
+        ancestor.children = null;
+        children.ancestor = null;
+    }
+
+    private void HandleRightClick()
     {
         //   Debug.Log("Right mouse Button Clicked on: " + name);
 
-        if (StateManager.Instance.connectStateClick)
+        if (id != 0)
         {
-            // Debug.Log("Create LineRenderer");
+            if (StateManager.Instance.connectStateClick)
+            {
+                LineHelper.second = this;
 
+                if(!LineHelper.IsOk())
+                {
+                    Debug.Log("Line existed");
+                    StateManager.Instance.Cancel();
+                    LineHelper.Cancel();
             GameObject line = this._ConstructLine();
 
             StateManager.Instance.CreateLine(line, this.transform);
 
-            //    Debug.Log("Connect to object");
+            Debug.Log("Connect to object");
+            
+            LineHelper.Connect();
         }
         else
         {
+            LineHelper.first = this;
             StateManager.Instance.SetLastPoint(this.transform);
-            //   Debug.Log("Activate connect 2 boxes state");
+            Debug.Log("Activate connect 2 boxes state");
         }
 
         StateManager.Instance.connectStateClick = !StateManager.Instance.connectStateClick;

@@ -5,12 +5,8 @@ using UnityEngine;
 public class StateManager : MonoBehaviour
 {
     public static StateManager Instance { get; private set;}
-
     public bool connectStateClick;
-
     private Transform prev;
-
-    
 
     private void Awake()
     {
@@ -29,16 +25,9 @@ public class StateManager : MonoBehaviour
         line.GetComponent<lr_LineController>().SetUpLine(new Transform[]{prev, to});
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void Cancel()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        prev = null;
+        connectStateClick = false;
     }
 }
