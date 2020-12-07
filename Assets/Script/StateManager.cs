@@ -38,6 +38,10 @@ public class StateManager : MonoBehaviour
         item.isIcon = false;
         item.tag = DragAndDropItem.myTag;
         item.transform.GetChild(0).tag = DragAndDropItem.myTag;
+        item.ancestor = item;
+
+        Graph.root = item;
+        Graph.node.Add(item);
 
         RectTransform rec = item.GetComponent<RectTransform>();
         rec.anchorMin = new Vector2(0.5f, .5f);
