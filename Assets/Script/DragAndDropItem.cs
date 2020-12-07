@@ -12,7 +12,8 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     public DragAndDropItem children;
     public DragAndDropItem ancestor;
 
-    private RectTransform rect;
+    private RectTransform _rect;
+
     public bool isIcon = false;
     public string myTag = "SpaceGroup";
 
@@ -21,20 +22,14 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     private DragAndDropItem item;
 
     public lr_LineController lr;
-    public RectTransform Rect { get => rect; set => rect = value; }
+    public RectTransform Rect { get => _rect; set => _rect = value; }
 
 
     private void Awake()
     {
         Rect = GetComponent<RectTransform>();
-        parent = GetComponentInParent<ContentSpace>();
-        
     }
 
-    void Update()
-    {
-        
-    }
     public void OnBeginDrag(PointerEventData eventData)
     {
         
@@ -53,67 +48,79 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             r = item.Rect;
         }
 
-        if (!ok(eventData) || isIcon) return;
+        if (!ok(eventData) || isIcon)
+            return;
 
-        float detal = 70f;
+        float delta = 70f;
 
-        if (r.anchoredPosition.y >= ContentSpace.instance.MyRect.sizeDelta.y/2 - detal)
+        if (r.anchoredPosition.y >= ContentSpace.instance.MyRect.sizeDelta.y/2 - delta)
             ContentSpace.instance.setSize(ContentSpace.DIRECTION.UP, r);
-        else if (r.anchoredPosition.y <= -ContentSpace.instance.MyRect.sizeDelta.y / 2 + detal)
+
+        else if (r.anchoredPosition.y <= -ContentSpace.instance.MyRect.sizeDelta.y / 2 + delta)
             ContentSpace.instance.setSize(ContentSpace.DIRECTION.DOWN, r);
-        else if (r.anchoredPosition.x >= ContentSpace.instance.MyRect.sizeDelta.x/2 - detal)
+
+        else if (r.anchoredPosition.x >= ContentSpace.instance.MyRect.sizeDelta.x/2 - delta)
             ContentSpace.instance.setSize(ContentSpace.DIRECTION.RIGHT, r);
-        else if (r.anchoredPosition.x <= -ContentSpace.instance.MyRect.sizeDelta.x / 2 + detal)
+
+        else if (r.anchoredPosition.x <= -ContentSpace.instance.MyRect.sizeDelta.x / 2 + delta)
             ContentSpace.instance.setSize(ContentSpace.DIRECTION.LEFT, r);
 
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-       
         if (!ok(eventData))
         {
             ContentSpace.instance.restoreSize();
-            if (isIcon) Destroy(item.gameObject);
-            else Destroy(this.gameObject);
+
+            if (isIcon)
+                Destroy(item.gameObject);
+            else
+            {
+                StateManager.Instance.RemoveLine(this);
+                Destroy(this.gameObject);
+            }
+                
         }
         item = null;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            this._HandleRightClick();
-        }
-        
-
-        //// Di chuyen
         if (isIcon)
         {
-            item = Instantiate(this, rect, false);
+            // Create layer to ContentSpace
+
+            item = Instantiate(this, this.Rect, false);
             item.id = ++DragAndDropItem.count;
             item.isIcon = false;
             item.tag = myTag;
             item.transform.GetChild(0).tag = myTag;
 
             RectTransform rec = item.GetComponent<RectTransform>();
-
             rec.anchorMin = new Vector2(0.5f, .5f);
             rec.anchorMax = new Vector2(0.5f, .5f);
 
             rec.SetParent(ContentSpace.instance.transform);
         }
+        else
+        {
+            this._HandleNotIconPointerDown(eventData);
+        }
     }
 
     public void OnDestroy()
     {
+        if (_checkNotNull(ancestor))
+            ancestor.children = null;
+
+        if (_checkNotNull(children))
+            children.ancestor = null;
+        
         Graph.node.Remove(this);
-        ancestor.children = null;
-        children.ancestor = null;
     }
 
-    private void HandleRightClick()
+    private void _HandleRightClick()
     {
         //   Debug.Log("Right mouse Button Clicked on: " + name);
 
@@ -123,51 +130,48 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             {
                 LineHelper.second = this;
 
-                if(!LineHelper.IsOk())
+                if (!LineHelper.IsOk())
                 {
                     Debug.Log("Line existed");
                     StateManager.Instance.Cancel();
                     LineHelper.Cancel();
-            GameObject line = this._ConstructLine();
+                    return;
+                }
 
-            StateManager.Instance.CreateLine(line, this.transform);
+                StateManager.Instance.CreateLine(gameObject);
 
-            Debug.Log("Connect to object");
-            
-            LineHelper.Connect();
+                LineHelper.Connect();
+            }
+
+            else
+            {
+                LineHelper.first = this;
+                StateManager.Instance.SetLastPoint(gameObject);
+            }
+
+            StateManager.Instance.connectStateClick = !StateManager.Instance.connectStateClick;
         }
-        else
-        {
-            LineHelper.first = this;
-            StateManager.Instance.SetLastPoint(this.transform);
-            Debug.Log("Activate connect 2 boxes state");
-        }
-
-        StateManager.Instance.connectStateClick = !StateManager.Instance.connectStateClick;
     }
 
-    private GameObject _ConstructLine()
+    
+
+    private void _HandleNotIconPointerDown(PointerEventData eventData)
     {
-        GameObject line = new GameObject("newline");
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            this._HandleRightClick();
+        }
 
-        line.AddComponent<LineRenderer>();
-        line.AddComponent<lr_LineController>();
-        line.AddComponent<RectTransform>();
-
-        RectTransform rec = line.GetComponent<RectTransform>();
-
-        rec.localScale = new Vector3(1, 1, 1);
-
-        line.GetComponent<LineRenderer>().startWidth = 0.1f;
-        line.GetComponent<LineRenderer>().endWidth = 0.1f;
-
-        line.transform.SetParent(ContentSpace.instance.transform);
-        rec.anchoredPosition3D = new Vector3(rec.anchoredPosition3D.x, rec.anchoredPosition3D.y, -10f);
-
-        return line;
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            Debug.Log("Clicked Item ID:" + this.id.ToString());
+        }
     }
 
-
+    private bool _checkNotNull(object o)
+    {
+        return o != null;
+    }
     private bool ok(PointerEventData eventData) {
         bool hl = true;
         try
