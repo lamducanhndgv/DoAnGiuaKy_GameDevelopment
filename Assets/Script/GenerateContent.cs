@@ -10,17 +10,17 @@ public class GenerateContent : MonoBehaviour
     static public Dictionary<string, string[]> listParamsEachString = new Dictionary<string, string[]>()
     {
         {"Recurrent",new string[]{"In_Chanels", "Out_Chanels"} },
-        {"Fully",new string[]{"In_Chanels", "Out_Chanels"} },
-        {"Conv1D",new string[]{"In_Chanels", "Out_Chanels"} },
-        {"Conv2D",new string[]{"In_Chanels", "Out_Chanels"} },
-        {"ReLU",new string[]{ "inplace"} },
-        {"MaxPool2d",new string[]{"Kernel_size", "stride"} },
-        {"DropDown",new string[]{ "p: float = 0.5","inplace: bool = False" } }
+        {"Fully Connected",new string[]{"In_Chanels", "Out_Chanels"} },
+        {"Convolutional 1D",new string[]{"In_Chanels", "Out_Chanels"} },
+        {"Convolutional 2D",new string[]{"In_Chanels", "Out_Chanels"} },
+        {"Relu",new string[]{ "inplace"} },
+        {"MaxPool 2D",new string[]{"Kernel_size", "stride"} },
+        {"Drop-out",new string[]{ "p: float = 0.5","inplace: bool = False" } }
     };
     // Start is called before the first frame update
     void Start()
     {
-        layerName = "Conv2D";
+        layerName = "Recurrent";
         if (listParamsEachString.ContainsKey(layerName))
         {
             string[] list = listParamsEachString[layerName];

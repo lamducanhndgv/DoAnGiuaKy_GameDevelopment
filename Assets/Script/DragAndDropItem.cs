@@ -15,10 +15,10 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     private RectTransform _rect;
 
     public bool isIcon = false;
-    public string myTag = "SpaceGroup";
+    public static string myTag = "SpaceGroup";
 
     public int id;
-
+    private string laynerName;
     private DragAndDropItem item;
 
     public RectTransform Rect { get => _rect; set => _rect = value; }
@@ -64,7 +64,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         else if (r.anchoredPosition.x <= -ContentSpace.instance.MyRect.sizeDelta.x / 2 + delta)
             ContentSpace.instance.setSize(ContentSpace.DIRECTION.LEFT, r);
 
-         StateManager.Instance.UpdateLine();
+        StateManager.Instance.UpdateLine(this);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -94,6 +94,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         else
         {
             this._HandleNotIconPointerDown(eventData);
+
         }
     }
 
@@ -155,6 +156,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         rec.anchorMin = new Vector2(0.5f, .5f);
         rec.anchorMax = new Vector2(0.5f, .5f);
         rec.SetParent(ContentSpace.instance.transform);
+        rec.anchoredPosition3D = new Vector3(rec.anchoredPosition3D.x, rec.anchoredPosition3D.y, -10f);
 
         StateManager.Instance.LayerLookUp[item.id.ToString()] = item.gameObject;
         
@@ -169,6 +171,14 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             Debug.Log("Clicked Item ID:" + this.id.ToString());
+
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            {
+                // Show dialog
+
+                
+            }
+            
         }
     }
     private bool _checkNotNull(object o)
@@ -180,7 +190,9 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         try
         {
             hl = eventData.pointerCurrentRaycast.gameObject.CompareTag(myTag);
-        } catch (Exception e) {
+        }
+        catch (Exception)
+        {
             hl = false;
         }
         return hl;
