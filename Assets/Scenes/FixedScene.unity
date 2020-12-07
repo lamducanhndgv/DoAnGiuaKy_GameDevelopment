@@ -341,7 +341,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 661087707}
   m_Direction: 2
   m_Value: 0.5
-  m_Size: 0.79732716
+  m_Size: 0.5999208
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1031,8 +1031,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 627278547}
   m_HandleRect: {fileID: 627278546}
   m_Direction: 0
-  m_Value: -0.000039673338
-  m_Size: 0.98862135
+  m_Value: -0.0000005363368
+  m_Size: 0.9040185
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1274,7 +1274,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.0003104, y: 0}
+  m_AnchoredPosition: {x: 28.45005, y: 0}
   m_SizeDelta: {x: 879, y: 701.0923}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1410004003
@@ -1487,6 +1487,7 @@ GameObject:
   - component: {fileID: 1691314290}
   - component: {fileID: 1691314289}
   - component: {fileID: 1691314288}
+  - component: {fileID: 1691314291}
   m_Layer: 5
   m_Name: GenerateCodeButton
   m_TagString: Untagged
@@ -1594,3 +1595,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1691314286}
   m_CullTransparentMesh: 0
+--- !u!114 &1691314291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691314286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e7df1524d9e3140b47ddf1fe44bc04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1691314288}
