@@ -69,6 +69,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
     public void OnEndDrag(PointerEventData eventData)
     {
+
         if (!ok(eventData))
         {
             ContentSpace.instance.restoreSize();
@@ -89,11 +90,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     {
         if (isIcon)
         {
-<<<<<<< HEAD
             this._CreateLayer();
-=======
-
->>>>>>> master
         }
         else
         {
