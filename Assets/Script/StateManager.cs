@@ -141,12 +141,13 @@ public class StateManager : MonoBehaviour
         if (layer.ancestor != null)
         {
             key = this._MakeKeyString(layer.id, layer.ancestor.id);
-            
+            LineLookUp[key].GetComponent<lr_LineController>().UpdatePosition(layer.gameObject.transform, true);
         }
 
         if (layer.children != null)
         {
             key = this._MakeKeyString(layer.id, layer.children.id);
+            LineLookUp[key].GetComponent<lr_LineController>().UpdatePosition(layer.gameObject.transform);
         }
     }
 
