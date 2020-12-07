@@ -39,6 +39,11 @@ public class lr_LineController : MonoBehaviour
         for (int i = 0; i < points.Length; i++)
         {
             Vector3 vec = new Vector3(points[i].position.x, points[i].position.y);
+
+            print(vec.x);
+
+            print(vec.y);
+
             lr.SetPosition(i, vec);
         }
     }
