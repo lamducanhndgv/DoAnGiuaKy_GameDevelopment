@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public static int count = 0;
@@ -12,19 +9,17 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     public DragAndDropItem ancestor;
 
     private RectTransform _rect;
+    public RectTransform Rect { get => _rect; set => _rect = value; }
 
     public bool isIcon = false;
     public static string myTag = "SpaceGroup";
 
     public int id;
-    private string laynerName;
+    public int layerid;
 
-    private Constants.Layer layer = new Constants.Conv1d();
+
+    private Constants.Layer layer = null;
     private DragAndDropItem item;
-
-
-    public RectTransform Rect { get => _rect; set => _rect = value; }
-
 
     private void Awake()
     {
@@ -110,6 +105,18 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             children.ancestor = null;
     }
 
+    public string GetStringLayer()
+    {
+        if (layer == null)
+            return "";
+        return layer.ToString();
+    }
+
+    public string GetLayerName()
+    {
+        return layer.LayerName.Substring(3);
+    }
+
     private void _HandleRightClick()
     {
         //   Debug.Log("Right mouse Button Clicked on: " + name);
@@ -175,6 +182,9 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
+                if (layer == null)
+                    layer = Constants.LayerFactory.BuildLayer(this.layerid);
+
                 // Show dialog
                 GameObject Popup = Instantiate(StateManager.Instance.Popup, ContentSpace.instance.MyRect, false);
                 Popup.GetComponent<Popup>().layerAttr = layer;
@@ -182,8 +192,6 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
                 r.anchorMin = new Vector2(0.2f, 0.2f);
                 r.anchorMax = new Vector2(0.8f, 0.8f);
                 r.localScale = new Vector3(1f, 1f, 1f);
-                Debug.Log(layer.ToString());
-
             }
 
         }

@@ -27,7 +27,11 @@ public class GenerateLayers : MonoBehaviour
         foreach (KeyValuePair<int, Color32> item in LayersConstants.LAYER_COLORS)
         {   
             if(item.Key != LayersConstants.INPUT)
-                CreateBox(item, this.rect);
+            {
+                DragAndDropItem it = CreateBox(item, this.rect);
+                it.layerid = item.Key;
+            }
+                
         }
     }
 

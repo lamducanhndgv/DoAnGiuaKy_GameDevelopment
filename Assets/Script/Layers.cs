@@ -259,4 +259,26 @@ namespace Constants
         }
     }
 
+    public class LayerFactory
+    {
+        public static Layer BuildLayer(int layerid)
+        {
+            switch (layerid)
+            {
+                case 1:
+                    return new Linear();
+                case 2:
+                    return new Conv1d();
+                case 3:
+                    return new Conv2d();
+                case 5:
+                    return new Dropout();
+                case 6:
+                    return new MaxPool2d();
+                case 7:
+                    return new ReLU();
+            }
+            return null;
+        }
+    }
 }
