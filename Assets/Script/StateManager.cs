@@ -13,6 +13,8 @@ public class StateManager : MonoBehaviour
 
 
     public bool connectStateClick;
+    public GameObject Popup;
+
     public Dictionary<string, GameObject> LayerLookUp;
     public static StateManager Instance { get; private set;}
     

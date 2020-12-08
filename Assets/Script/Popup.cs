@@ -9,6 +9,7 @@ public class Popup : MonoBehaviour
 {
     public Button _buttonClickOK;
     public Button _buttonClickCancel;
+    
 
     public string layerName;
 

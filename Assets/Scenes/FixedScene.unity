@@ -341,7 +341,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 661087707}
   m_Direction: 2
   m_Value: 0.5
-  m_Size: 0.5999208
+  m_Size: 0.79732716
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -427,6 +427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectStateClick: 0
+  Popup: {fileID: 8467126477308709833, guid: 509a587c66b474162b28567de7232c1e, type: 3}
 --- !u!1 &385296370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,8 +1032,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 627278547}
   m_HandleRect: {fileID: 627278546}
   m_Direction: 0
-  m_Value: -0.0000005363368
-  m_Size: 0.9040185
+  m_Value: -26.15883
+  m_Size: 0.49431488
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1274,7 +1275,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28.45005, y: 0}
+  m_AnchoredPosition: {x: 266.58664, y: 0}
   m_SizeDelta: {x: 879, y: 701.0923}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1410004003

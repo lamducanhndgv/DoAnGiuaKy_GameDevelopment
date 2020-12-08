@@ -176,8 +176,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 // Show dialog
-
-                
+                GameObject Popup = Instantiate(StateManager.Instance.Popup, ContentSpace.instance.MyRect, false);
             }
             
         }
