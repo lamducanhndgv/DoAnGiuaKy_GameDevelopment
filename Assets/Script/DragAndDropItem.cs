@@ -151,7 +151,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     {
         // Create layer to ContentSpace
         item = Instantiate(this, this.Rect, false);
-        item.id = ++ DragAndDropItem.count;
+        item.id = ++DragAndDropItem.count;
         item.isIcon = false;
         item.tag = myTag;
         item.transform.GetChild(0).tag = myTag;

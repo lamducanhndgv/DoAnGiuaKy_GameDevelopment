@@ -10,16 +10,19 @@ public class GenerateCodeButton : MonoBehaviour
 
     private void Start()
     {
-        button.onClick.AddListener(() =>
-        {
-            //if(Graph.IsCyclic())
-            //{
-            //    Debug.Log("co chu trinh");
-            //}
-            //else
-            //{
-            //    Debug.Log("khong co chu trinh");
-            //}
+        button.onClick.AddListener(() => {
+            List<DragAndDropItem> result = CollectInfo();
+            foreach(DragAndDropItem item in result)
+            {
+                print(item.id);
+            }
         });
+    }
+
+    private List<DragAndDropItem> CollectInfo()
+    {
+        List<DragAndDropItem> result = new List<DragAndDropItem>();
+
+        return result;
     }
 }

@@ -36,7 +36,7 @@ public class StateManager : MonoBehaviour
 
         DragAndDropItem item = GenerateLayers.Instance.CreateBox(kv, ContentSpace.instance.MyRect);
 
-        item.id = ++DragAndDropItem.count;
+        item.id = 0;
         item.isIcon = false;
         item.tag = DragAndDropItem.myTag;
         item.transform.GetChild(0).tag = DragAndDropItem.myTag;

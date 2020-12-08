@@ -5,6 +5,7 @@ using UnityEngine;
 public static class Graph
 {
     public static List<DragAndDropItem> node = new List<DragAndDropItem>();
+
     public static DragAndDropItem root;
 
     private static DragAndDropItem getNodeByID(int id)
@@ -13,7 +14,6 @@ public static class Graph
         {
             if (item.id == id) return item;
         }
-
         return null;
     }
 
