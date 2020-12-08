@@ -12,17 +12,12 @@ public class GenerateCodeButton : MonoBehaviour
     {
         button.onClick.AddListener(() => {
             List<DragAndDropItem> result = CollectInfo();
-            foreach(DragAndDropItem item in result)
-            {
-                print(item.id);
-            }
+            ScriptWriter.Instance.WriteToFile(result);
         });
     }
 
     private List<DragAndDropItem> CollectInfo()
     {
-        List<DragAndDropItem> result = new List<DragAndDropItem>();
-
-        return result;
+        return Graph.CollectNode();
     }
 }

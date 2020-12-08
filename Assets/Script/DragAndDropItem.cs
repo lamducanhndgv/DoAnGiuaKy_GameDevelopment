@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System;
 public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public static int count = 0;
@@ -109,8 +108,6 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
         if (_checkNotNull(children))
             children.ancestor = null;
-        
-        Graph.node.Remove(this);
     }
 
     private void _HandleRightClick()

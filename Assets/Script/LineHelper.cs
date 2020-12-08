@@ -9,9 +9,6 @@ public static class LineHelper
 
     public static void Connect()
     {
-        if (!Graph.node.Contains(first)) Graph.node.Add(first);
-        if (!Graph.node.Contains(second)) Graph.node.Add(second);
-
         first.ancestor = second;
         second.children = first;
 

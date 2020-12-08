@@ -1,21 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public static class Graph
 {
-    public static List<DragAndDropItem> node = new List<DragAndDropItem>();
-
     public static DragAndDropItem root;
-
-    private static DragAndDropItem getNodeByID(int id)
-    {
-        foreach(var item in node)
-        {
-            if (item.id == id) return item;
-        }
-        return null;
-    }
 
     private static bool[] createUnvisitedArray(int size)
     {
@@ -45,5 +35,20 @@ public static class Graph
         }
 
         return false;
+    }
+
+    public static List<DragAndDropItem> CollectNode()
+    {
+        List<DragAndDropItem> items = new List<DragAndDropItem>();
+
+        DragAndDropItem currNode = root;
+
+        while (currNode != null)
+        {
+            items.Add(currNode);
+            currNode = currNode.children;
+        }
+
+        return items;
     }
 }
