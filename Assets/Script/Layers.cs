@@ -9,7 +9,7 @@ namespace Constants
         public static int FULLY_CONNECTED = 1;
         public static int CONVOLUTIONAL1D = 2;
         public static int CONVOLUTIONAL2D = 3;
-        public static int RECURRENT = 4;
+        //public static int RECURRENT = 4;
         public static int DROP_OUT = 5;
         public static int MAXPOOL2D = 6;
         public static int RELU = 7;
@@ -20,7 +20,7 @@ namespace Constants
             { FULLY_CONNECTED, "Fully Connected" },
             { CONVOLUTIONAL1D, "Convolutional 1D" },
             { CONVOLUTIONAL2D, "Convolutional 2D" },
-            { RECURRENT, "Recurrent" },
+            //{ RECURRENT, "Recurrent" },
             { DROP_OUT, "Drop-out" },
             { MAXPOOL2D, "Maxpool 2D" },
             { RELU, "Relu" }
@@ -32,7 +32,7 @@ namespace Constants
             { FULLY_CONNECTED, new Color32(0, 169, 157, 255) },
             { CONVOLUTIONAL1D, new Color32(237, 199, 10, 255) },
             { CONVOLUTIONAL2D, new Color32(0, 113, 188, 255) },
-            { RECURRENT, new Color32(158, 0, 93, 255) },
+            //{ RECURRENT, new Color32(158, 0, 93, 255) },
             { DROP_OUT, new Color32(27, 20, 100, 255) },
             { MAXPOOL2D, new Color32(184, 184, 184, 255) },
             { RELU, new Color32(251, 176, 59, 255) }
@@ -89,8 +89,8 @@ namespace Constants
             }
         }
     }
-
-    public class Conv1d: Layer
+    // Class inherited
+    public class Conv1d : Layer
     {
         public Conv1d()
         {
@@ -132,7 +132,131 @@ namespace Constants
                     "True",
                     "bool"
             ));
-        } 
+        }
+    }
+    public class Conv2d : Layer
+    {
+        public Conv2d()
+        {
+            this.LayerName = "nn.Conv2d";
+
+            this.attributes.Add(
+                new Attribute(
+                    "in_channels",
+                    null,
+                    "int"
+            ));
+            this.attributes.Add(
+                new Attribute(
+                    "out_channels",
+                    null,
+                    "int"
+            ));
+            this.attributes.Add(
+                new Attribute(
+                    "kernel_size",
+                    null,
+                    "int"
+            ));
+            this.attributes.Add(
+                new Attribute(
+                    "stride",
+                    "1",
+                    "int"
+            ));
+            this.attributes.Add(
+                new Attribute(
+                    "padding",
+                    "0",
+                    "int"
+            ));
+            this.attributes.Add(
+                new Attribute(
+                    "bias",
+                    "True",
+                    "bool"
+            ));
+        }
+    }
+    public class Dropout : Layer
+    {
+        public Dropout()
+        {
+            this.LayerName = "nn.Dropout";
+
+            this.attributes.Add(
+                new Attribute(
+                    "p",
+                    "0.5",
+                    "float"
+            ));
+        }
+    }
+    public class MaxPool2d : Layer
+    {
+        public MaxPool2d()
+        {
+            this.LayerName = "nn.MaxPool2d";
+
+            this.attributes.Add(
+                new Attribute(
+                    "kernel_size",
+                    null,
+                    "float"
+            ));
+            this.attributes.Add(
+             new Attribute(
+                 "stride",
+                 "1",
+                 "int"
+         ));
+            this.attributes.Add(
+                new Attribute(
+                    "padding",
+                    "0",
+                    "int"
+            ));
+        }
+    }
+    public class ReLU : Layer
+    {
+        public ReLU()
+        {
+            this.LayerName = "nn.Dropout";
+
+            this.attributes.Add(
+                new Attribute(
+                    "inplace",
+                    "False",
+                    "bool"
+            ));
+        }
+    }
+    public class Linear : Layer
+    {
+        public Linear()
+        {
+            this.LayerName = "nn.Linear";
+
+            this.attributes.Add(
+                new Attribute(
+                    "in_features",
+                    null,
+                    "int"
+            ));
+            this.attributes.Add(
+              new Attribute(
+                  "out_features",
+                  null,
+                  "int"
+          ));
+            this.attributes.Add(
+             new Attribute(
+                 "bias",
+                 "True",
+                 "bool"
+         ));
+        }
     }
 
 }
