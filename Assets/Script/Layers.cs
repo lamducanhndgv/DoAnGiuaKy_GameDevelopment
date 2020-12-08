@@ -9,7 +9,7 @@ namespace Constants
         public static int FULLY_CONNECTED = 1;
         public static int CONVOLUTIONAL1D = 2;
         public static int CONVOLUTIONAL2D = 3;
-        //public static int RECURRENT = 4;
+        public static int FLATTEN = 4;
         public static int DROP_OUT = 5;
         public static int MAXPOOL2D = 6;
         public static int RELU = 7;
@@ -20,7 +20,7 @@ namespace Constants
             { FULLY_CONNECTED, "Fully Connected" },
             { CONVOLUTIONAL1D, "Convolutional 1D" },
             { CONVOLUTIONAL2D, "Convolutional 2D" },
-            //{ RECURRENT, "Recurrent" },
+            { FLATTEN, "Flatten" },
             { DROP_OUT, "Drop-out" },
             { MAXPOOL2D, "Maxpool 2D" },
             { RELU, "Relu" }
@@ -32,7 +32,7 @@ namespace Constants
             { FULLY_CONNECTED, new Color32(0, 169, 157, 255) },
             { CONVOLUTIONAL1D, new Color32(237, 199, 10, 255) },
             { CONVOLUTIONAL2D, new Color32(0, 113, 188, 255) },
-            //{ RECURRENT, new Color32(158, 0, 93, 255) },
+            { FLATTEN, new Color32(158, 0, 93, 255) },
             { DROP_OUT, new Color32(27, 20, 100, 255) },
             { MAXPOOL2D, new Color32(184, 184, 184, 255) },
             { RELU, new Color32(251, 176, 59, 255) }
@@ -55,7 +55,7 @@ namespace Constants
 
         override public string ToString()
         {
-            return $"{name}={(this.value != null ? this.value : this.default_value)}";
+            return $"{name}={(this.value == null || this.value == "" ? this.default_value : this.value)}";
         }
     }
 
@@ -222,7 +222,7 @@ namespace Constants
     {
         public ReLU()
         {
-            this.LayerName = "nn.Dropout";
+            this.LayerName = "nn.ReLU";
 
             this.attributes.Add(
                 new Attribute(
@@ -258,6 +258,25 @@ namespace Constants
          ));
         }
     }
+    public class Flatten: Layer
+    {
+        public Flatten()
+        {
+            this.LayerName = "nn.Flatten";
+            this.attributes.Add(
+                    new Attribute(
+                        "start_dim",
+                        "1",
+                        "int"
+            ));
+            this.attributes.Add(
+                    new Attribute(
+                        "end_dim",
+                        "-1",
+                        "int"
+            ));
+        }
+    }
 
     public class LayerFactory
     {
@@ -271,6 +290,8 @@ namespace Constants
                     return new Conv1d();
                 case 3:
                     return new Conv2d();
+                case 4:
+                    return new Flatten();
                 case 5:
                     return new Dropout();
                 case 6:

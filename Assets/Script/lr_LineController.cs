@@ -5,6 +5,8 @@ using UnityEngine;
 public class lr_LineController : MonoBehaviour
 {
     public LineRenderer lr;
+    public RectTransform rect;
+
     private Transform[] points;
 
     private void Awake()
@@ -17,10 +19,10 @@ public class lr_LineController : MonoBehaviour
     void Start()
     {
         lr.useWorldSpace = false;
-        RectTransform rec = this.GetComponent<RectTransform>();
-        rec.anchorMin = new Vector2(0.5f, .5f);
-        rec.anchorMax = new Vector2(0.5f, .5f);
-        rec.SetParent(ContentSpace.instance.transform);
+        rect = this.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0.5f, .5f);
+        rect.anchorMax = new Vector2(0.5f, .5f);
+        rect.SetParent(ContentSpace.instance.transform);
     }
 
     private void _UpdateLine()
@@ -47,6 +49,10 @@ public class lr_LineController : MonoBehaviour
     {
         int index = isFrom ? 0 : 1;
         this.points[index] = point;
+
+        gameObject.transform.SetParent(ContentSpace.instance.transform);
+        rect.anchoredPosition3D = new Vector3(rect.anchoredPosition3D.x, rect.anchoredPosition3D.y, -10f);
+
         this._UpdateLine();
     } 
     

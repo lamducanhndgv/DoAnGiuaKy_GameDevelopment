@@ -24,6 +24,9 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     private void Awake()
     {
         Rect = GetComponent<RectTransform>();
+
+        if (layer == null)
+            layer = Constants.LayerFactory.BuildLayer(this.layerid);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -182,8 +185,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
-                if (layer == null)
-                    layer = Constants.LayerFactory.BuildLayer(this.layerid);
+                
 
                 // Show dialog
                 GameObject Popup = Instantiate(StateManager.Instance.Popup, ContentSpace.instance.MyRect, false);

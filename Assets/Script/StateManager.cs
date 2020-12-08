@@ -85,6 +85,9 @@ public class StateManager : MonoBehaviour
         line.GetComponent<LineRenderer>().startWidth = 0.1f;
         line.GetComponent<LineRenderer>().endWidth = 0.1f;
 
+        line.GetComponent<LineRenderer>().startColor = new Color(255, 255, 255);
+        line.GetComponent<LineRenderer>().endColor = new Color(255, 255, 255);
+
         line.transform.SetParent(ContentSpace.instance.transform);
 
         rec.anchoredPosition3D = new Vector3(rec.anchoredPosition3D.x, rec.anchoredPosition3D.y, -10f);
@@ -144,7 +147,7 @@ public class StateManager : MonoBehaviour
     {
         string key;
 
-        if (layer.ancestor != null)
+        if (layer.id != 1 && layer.ancestor != null)
         {
             key = this._MakeKeyString(layer.id, layer.ancestor.id);
             LineLookUp[key].GetComponent<lr_LineController>().UpdatePosition(layer.gameObject.transform, true);
@@ -153,7 +156,7 @@ public class StateManager : MonoBehaviour
         if (layer.children != null)
         {
             key = this._MakeKeyString(layer.id, layer.children.id);
-            LineLookUp[key].GetComponent<lr_LineController>().UpdatePosition(layer.gameObject.transform);
+            LineLookUp[key].GetComponent<lr_LineController>().UpdatePosition(layer.gameObject.transform, false);
         }
     }
 
