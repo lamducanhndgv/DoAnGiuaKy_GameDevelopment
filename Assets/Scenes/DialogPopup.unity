@@ -184,6 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buttonClickOK: {fileID: 1283349426}
   _buttonClickCancel: {fileID: 354771571}
+  ContentRender: {fileID: 768105480}
   layerName: 
 --- !u!114 &1283349426 stripped
 MonoBehaviour:
@@ -554,4 +555,5 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1743010410135736062, guid: 509a587c66b474162b28567de7232c1e, type: 3}
+    - {fileID: 565024261130008066, guid: 509a587c66b474162b28567de7232c1e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 509a587c66b474162b28567de7232c1e, type: 3}
