@@ -177,8 +177,15 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             {
                 // Show dialog
                 GameObject Popup = Instantiate(StateManager.Instance.Popup, ContentSpace.instance.MyRect, false);
+
+                RectTransform r = Popup.GetComponent<RectTransform>();
+                r.anchorMin = new Vector2(0.2f, 0.2f);
+                r.anchorMax = new Vector2(0.8f, 0.8f);
+                r.localScale = new Vector3(1f, 1f, 1f);
+
+
             }
-            
+
         }
     }
     private bool _checkNotNull(object o)

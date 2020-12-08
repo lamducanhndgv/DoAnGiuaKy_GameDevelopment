@@ -7,10 +7,11 @@ using UnityEngine.UI;
 
 public class Popup : MonoBehaviour
 {
+    public GameObject ContentRow;
+
     public Button _buttonClickOK;
     public Button _buttonClickCancel;
-    
-
+    public GameObject ContentRender;
     public string layerName;
 
     static public Dictionary<string, string[]> listParamsEachString = new Dictionary<string, string[]>()
@@ -25,16 +26,19 @@ public class Popup : MonoBehaviour
     };
     public void Start()
     {
-        // initInputField(layerName);
+        initInputField(layerName);
 
         _buttonClickOK.onClick.AddListener(() =>
         {
             Debug.Log("OK Clicked");
+            Destroy(this.gameObject);
         });
 
         _buttonClickCancel.onClick.AddListener(() =>
         {
             Debug.Log("Cancel Clicked");
+            Destroy(this.gameObject);
+
         });
     }
 
@@ -47,8 +51,8 @@ public class Popup : MonoBehaviour
             string[] list = listParamsEachString[layerName];
             foreach (string val in list)
             {
-                GameObject it = Instantiate(gameObject, this.transform);
-
+                GameObject it = Instantiate(ContentRow, ContentRender.transform,false);
+                it.transform.SetParent(ContentRender.transform);
                 it.GetComponentInChildren<Text>().text = val;
             }
         }
