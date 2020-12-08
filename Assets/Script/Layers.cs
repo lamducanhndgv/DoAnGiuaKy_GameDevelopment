@@ -39,7 +39,7 @@ namespace Constants
         };
     }
 
-    class Attribute
+    public class Attribute
     { 
         public string name { get; }
         public string default_value { get; }
@@ -59,11 +59,11 @@ namespace Constants
         }
     }
 
-    class Layer
+    public class Layer
     {
-        protected string LayerName;
-        
-        protected List<Attribute> attributes = new List<Attribute>();
+        public string LayerName;
+
+        public List<Attribute> attributes = new List<Attribute>();
 
         override public string ToString()
         {
@@ -90,7 +90,7 @@ namespace Constants
         }
     }
 
-    class Conv1d: Layer
+    public class Conv1d: Layer
     {
         public Conv1d()
         {

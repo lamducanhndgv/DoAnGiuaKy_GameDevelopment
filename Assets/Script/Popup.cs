@@ -12,21 +12,11 @@ public class Popup : MonoBehaviour
     public Button _buttonClickOK;
     public Button _buttonClickCancel;
     public GameObject ContentRender;
-    public string layerName;
+    public Constants.Layer layerAttr;
 
-    static public Dictionary<string, string[]> listParamsEachString = new Dictionary<string, string[]>()
-    {
-        {"Recurrent",new string[]{"In_Chanels", "Out_Chanels"} },
-        {"Fully Connected",new string[]{"In_Chanels", "Out_Chanels"} },
-        {"Convolutional 1D",new string[]{"In_Chanels", "Out_Chanels"} },
-        {"Convolutional 2D",new string[]{"In_Chanels", "Out_Chanels"} },
-        {"Relu",new string[]{ "inplace"} },
-        {"MaxPool 2D",new string[]{"Kernel_size", "stride"} },
-        {"Drop-out",new string[]{ "p: float = 0.5","inplace: bool = False" } }
-    };
     public void Start()
     {
-        initInputField(layerName);
+        initInputField(layerAttr.LayerName);
 
         _buttonClickOK.onClick.AddListener(() =>
         {
@@ -45,17 +35,22 @@ public class Popup : MonoBehaviour
 
     private void initInputField(string layerName)
     {
-        layerName = "Recurrent";
-        if (listParamsEachString.ContainsKey(layerName))
-        {
-            string[] list = listParamsEachString[layerName];
+        //if (listParamsEachString.ContainsKey(layerName))
+        //{
+        //    string[] list = listParamsEachString[layerName];
 
-            foreach (string val in list)
-            {
-                GameObject it = Instantiate(ContentRow, ContentRender.transform,false);
-                it.transform.SetParent(ContentRender.transform);
-                it.GetComponentInChildren<Text>().text = val;
-            }
+        //    foreach (string val in list)
+        //    {
+        //        GameObject it = Instantiate(ContentRow, ContentRender.transform,false);
+        //        it.transform.SetParent(ContentRender.transform);
+        //        it.GetComponentInChildren<Text>().text = val;
+        //    }
+        //}
+        foreach (Constants.Attribute attribute in layerAttr.attributes)
+        {
+            GameObject it = Instantiate(ContentRow, ContentRender.transform, false);
+            it.transform.SetParent(ContentRender.transform);
+            it.GetComponentInChildren<Text>().text = attribute.name;
         }
     }
 

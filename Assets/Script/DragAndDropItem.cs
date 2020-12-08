@@ -19,7 +19,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     public int id;
     private string laynerName;
 
-    private Constants.Layer layer;
+    private Constants.Layer layer = new Constants.Conv1d();
     private DragAndDropItem item;
 
 
@@ -177,7 +177,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             {
                 // Show dialog
                 GameObject Popup = Instantiate(StateManager.Instance.Popup, ContentSpace.instance.MyRect, false);
-
+                Popup.GetComponent<Popup>().layerAttr = layer;
                 RectTransform r = Popup.GetComponent<RectTransform>();
                 r.anchorMin = new Vector2(0.2f, 0.2f);
                 r.anchorMax = new Vector2(0.8f, 0.8f);
