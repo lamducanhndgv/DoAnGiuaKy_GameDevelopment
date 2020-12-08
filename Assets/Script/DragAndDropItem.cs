@@ -182,7 +182,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
                 r.anchorMin = new Vector2(0.2f, 0.2f);
                 r.anchorMax = new Vector2(0.8f, 0.8f);
                 r.localScale = new Vector3(1f, 1f, 1f);
-
+                Debug.Log(layer.ToString());
 
             }
 
