@@ -45,11 +45,12 @@ public class Popup : MonoBehaviour
         if (listParamsEachString.ContainsKey(layerName))
         {
             string[] list = listParamsEachString[layerName];
+
             foreach (string val in list)
             {
-                GameObject it = Instantiate(gameObject, this.transform);
+                // GameObject it = Instantiate(, this.transform);
 
-                it.GetComponentInChildren<Text>().text = val;
+                // it.GetComponentInChildren<Text>().text = val;
             }
         }
     }

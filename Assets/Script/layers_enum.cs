@@ -38,4 +38,102 @@ namespace Constants
             { RELU, new Color32(251, 176, 59, 255) }
         };
     }
+
+    class Attribute
+    { 
+        public string name { get; }
+        public string default_value { get; }
+        public string data_type { get; }
+        public string value { get; set; }
+        public Attribute(string name, string default_value, string data_type)
+        {
+            this.name = name;
+            this.default_value = default_value;
+            this.data_type = data_type;
+            this.value = null;
+        }
+
+        override public string ToString()
+        {
+            return $"{name}={(this.value != null ? this.value : this.default_value)}";
+        }
+    }
+
+
+    class Layer
+    {
+        protected string LayerName;
+        
+        protected List<Attribute> attributes = new List<Attribute>();
+
+        override public string ToString()
+        {
+            string AttributeString = "";
+
+            int n = this.attributes.Count;
+
+            for (int i = 0; i < n; i++)
+            {
+                AttributeString += this.attributes[i].ToString();
+                if (i < n - 1)
+                    AttributeString += ',';
+            }
+            return  $"{LayerName}({AttributeString})";
+        }
+
+        public void SetValueAttributes(string[] values)
+        {
+            int n = this.attributes.Count;
+            for (int i = 0; i < n; i++)
+            {
+                this.attributes[i].value = values[i];
+            }
+        }
+    }
+
+    class Conv1d: Layer
+    {
+        public Conv1d()
+        {
+            this.LayerName = "nn.Conv1d";
+
+            this.attributes.Add(
+                new Attribute(
+                    "in_channels",
+                    null,
+                    "int"
+            ));
+            this.attributes.Add(
+                new Attribute(
+                    "out_channels",
+                    null,
+                    "int"
+            ));
+            this.attributes.Add(
+                new Attribute(
+                    "kernel_size",
+                    null,
+                    "int"
+            ));
+            this.attributes.Add(
+                new Attribute(
+                    "stride",
+                    "1",
+                    "int"
+            ));
+            this.attributes.Add(
+                new Attribute(
+                    "padding",
+                    "0",
+                    "int"
+            ));
+            this.attributes.Add(
+                new Attribute(
+                    "bias",
+                    "True",
+                    "bool"
+            ));
+        } 
+    }
+
 }
