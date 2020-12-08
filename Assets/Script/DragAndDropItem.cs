@@ -19,7 +19,10 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
     public int id;
     private string laynerName;
+
+    private Constants.Layer layer;
     private DragAndDropItem item;
+
 
     public RectTransform Rect { get => _rect; set => _rect = value; }
 

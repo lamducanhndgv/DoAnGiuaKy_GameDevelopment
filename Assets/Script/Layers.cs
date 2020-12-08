@@ -59,7 +59,6 @@ namespace Constants
         }
     }
 
-
     class Layer
     {
         protected string LayerName;
