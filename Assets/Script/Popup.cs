@@ -21,6 +21,7 @@ public class Popup : MonoBehaviour
         _buttonClickOK.onClick.AddListener(() =>
         {
             Debug.Log("OK Clicked");
+            SetValueForAttributes();
             Destroy(this.gameObject);
         });
 
@@ -32,6 +33,17 @@ public class Popup : MonoBehaviour
         });
     }
 
+    private void SetValueForAttributes()
+    {
+        InputField[] inputFields= FindObjectsOfType<InputField>();
+        List<string> userInput = new List<string>();
+        foreach(InputField inputField in inputFields)
+        {
+            userInput.Add(inputField.text);
+        }
+        userInput.Reverse();
+        layerAttr.SetValueAttributes(userInput.ToArray());
+    }
 
     private void initInputField(string layerName)
     {
