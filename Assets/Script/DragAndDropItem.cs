@@ -82,7 +82,8 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
                 Destroy(item.gameObject);
             else
             {
-                StateManager.Instance.Remove(this);
+                // StateManager.Instance.Remove(this);
+                LineManager.instance.RemoveLine(this);
                 Destroy(this.gameObject);
             }
                 

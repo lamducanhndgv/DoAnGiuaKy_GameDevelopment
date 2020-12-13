@@ -6,11 +6,9 @@ using UnityEngine.UI.Extensions;
 
 public class LineManager : MonoBehaviour
 {
-
-
-
     private UILineRenderer lineMana = null;
-    private List<LineObject> listLine = new List<LineObject>();
+    [SerializeField] private List<LineObject> listLine = new List<LineObject>();
+    [SerializeField] private List<Vector2> pointlist;
 
     private Dictionary<string, int> lineLookUp = new Dictionary<string, int>();
 
@@ -44,6 +42,7 @@ public class LineManager : MonoBehaviour
                 return;
             }
             ListLine[ListLine.Count - 1].setEnd(d, d.id);
+
             List<Vector2> p = new List<Vector2>(lineMana.Points);
             p.Add(ListLine[ListLine.Count - 1].Start.Rect.anchoredPosition);
             p.Add(ListLine[ListLine.Count - 1].End.Rect.anchoredPosition);
@@ -60,6 +59,45 @@ public class LineManager : MonoBehaviour
         firstClick = !firstClick;
     }
 
+    public void RemoveLine(DragAndDropItem d)
+    {
+        string key = "";
+        int index = -1;
+
+        pointlist = new List<Vector2>();
+
+        if (d.id != 1 && d.ancestor != null)
+        {
+            key = this._MakeKeyString(d.id, d.ancestor.id);
+            index = 2 * this.lineLookUp[key];
+
+            this.listLine.RemoveAt(this.lineLookUp[key]);
+        }
+
+        if (d.children != null)
+        {
+            key = this._MakeKeyString(d.id, d.children.id);
+            index = 2 * this.lineLookUp[key];
+
+            this.listLine.RemoveAt(this.lineLookUp[key]);
+        }
+
+        this._UpdateLineLookUp();
+
+        foreach(var line in this.listLine)
+        {
+            pointlist.Add(line.Start.Rect.anchoredPosition);
+            pointlist.Add(line.End.Rect.anchoredPosition);
+        }
+        
+        lineMana.Points = pointlist.ToArray();
+
+        if (lineMana.Points.Length == 0)
+        {
+            lineMana.enabled = false;
+        }
+    }
+
 
     public string _MakeKeyString(int a, int b)
     {
@@ -71,7 +109,7 @@ public class LineManager : MonoBehaviour
         string key = "";
         int index = -1;
 
-        var pointlist = new List<Vector2>(lineMana.Points);
+        pointlist = new List<Vector2>(lineMana.Points);
 
         if (d.id != 1 && d.ancestor != null)
         {
@@ -89,6 +127,14 @@ public class LineManager : MonoBehaviour
 
         lineMana.Points = pointlist.ToArray();
         
+    }
+
+    private void _UpdateLineLookUp()
+    {
+        for(int i = 0; i < this.listLine.Count; i++)
+        {
+            this.lineLookUp[this.listLine[i].getName()] = i;
+        }
     }
 
 }
