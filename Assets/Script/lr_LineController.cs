@@ -1,28 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI.Extensions;
 
 public class lr_LineController : MonoBehaviour
 {
-    public LineRenderer lr;
+    public UILineRenderer lr;
     public RectTransform rect;
 
     private Transform[] points;
 
     private void Awake()
     {
-        lr = GetComponent<LineRenderer>();
+        // lr = GetComponent<LineRenderer>();
+        lr = GetComponent<UILineRenderer>();
+        lr.Points = new Vector2[2];
+        lr.LineThickness = 2;
+
         points = null;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        lr.useWorldSpace = false;
+       /// lr.useWorldSpace = false;
         rect = this.GetComponent<RectTransform>();
         rect.anchorMin = new Vector2(0.5f, .5f);
         rect.anchorMax = new Vector2(0.5f, .5f);
         rect.SetParent(ContentSpace.instance.transform);
+        print("Hoan Thanh");
     }
 
     private void _UpdateLine()
@@ -32,15 +38,16 @@ public class lr_LineController : MonoBehaviour
 
         for (int i = 0; i < points.Length; i++)
         {
-            Vector3 vec = new Vector3(points[i].position.x, points[i].position.y);
-            lr.SetPosition(i, vec);
+            // Vector3 vec = new Vector3(points[i].position.x, points[i].position.y);
+            // lr.SetPosition(i, vec);
+            lr.Points[i] = points[i].position;
         }
     }
 
 
     public void SetUpLine(Transform[] points)
     {
-        lr.positionCount = points.Length;
+        // lr.positionCount = points.Length;
         this.points = points;
         _UpdateLine();
     }
@@ -54,10 +61,19 @@ public class lr_LineController : MonoBehaviour
         rect.anchoredPosition3D = new Vector3(rect.anchoredPosition3D.x, rect.anchoredPosition3D.y, -10f);
 
         this._UpdateLine();
-    } 
-    
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            print(points[0].position);
+            print(points[1].position);
+        }
+    }
 
 
 
-    
+
+
 }

@@ -8,6 +8,8 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     public DragAndDropItem children;
     public DragAndDropItem ancestor;
 
+    [SerializeField] private Canvas canvas;
+
     private RectTransform _rect;
     public RectTransform Rect { get => _rect; set => _rect = value; }
 
@@ -24,6 +26,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     private void Awake()
     {
         Rect = GetComponent<RectTransform>();
+        canvas = GameObject.FindWithTag("Canvas").GetComponent<Canvas>();
 
         if (layer == null)
             layer = Constants.LayerFactory.BuildLayer(this.layerid);
@@ -39,11 +42,11 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
         if (!isIcon)
         {
-            Rect.anchoredPosition += eventData.delta;
+            Rect.anchoredPosition += eventData.delta / canvas.scaleFactor ;
             r = Rect;
         }
         else { 
-            item.Rect.anchoredPosition += eventData.delta;
+            item.Rect.anchoredPosition += eventData.delta / canvas.scaleFactor;
             r = item.Rect;
         }
 
@@ -64,7 +67,8 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
         else if (r.anchoredPosition.x <= -ContentSpace.instance.MyRect.sizeDelta.x / 2 + delta)
             ContentSpace.instance.setSize(ContentSpace.DIRECTION.LEFT, r);
 
-        StateManager.Instance.UpdateLine(this);
+        // StateManager.Instance.UpdateLine(this);
+        LineManager.instance.UpdateLine(this);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -126,30 +130,31 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
         if (id != 0)
         {
-            if (StateManager.Instance.connectStateClick)
-            {
-                LineHelper.second = this;
+            //if (StateManager.Instance.connectStateClick)
+            //{
+            //    LineHelper.second = this;
 
-                if (!LineHelper.IsOk())
-                {
-                    Debug.Log("Line existed");
-                    StateManager.Instance.Cancel();
-                    LineHelper.Cancel();
-                    return;
-                }
+            //    if (!LineHelper.IsOk())
+            //    {
+            //        Debug.Log("Line existed");
+            //        StateManager.Instance.Cancel();
+            //        LineHelper.Cancel();
+            //        return;
+            //    }
 
-                StateManager.Instance.CreateLine(gameObject);
+            //    StateManager.Instance.CreateLine(gameObject);
 
-                LineHelper.Connect();
-            }
+            //    LineHelper.Connect();
+            //}
 
-            else
-            {
-                LineHelper.first = this;
-                StateManager.Instance.SetLastPoint(gameObject);
-            }
+            //else
+            //{
+            //    LineHelper.first = this;
+            //    StateManager.Instance.SetLastPoint(gameObject);
+            //}
 
-            StateManager.Instance.connectStateClick = !StateManager.Instance.connectStateClick;
+            //StateManager.Instance.connectStateClick = !StateManager.Instance.connectStateClick;
+            LineManager.instance.createLine(this);
         }
     }
 

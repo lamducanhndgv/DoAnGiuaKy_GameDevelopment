@@ -1301,8 +1301,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 627278547}
   m_HandleRect: {fileID: 627278546}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.7138604
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1521,6 +1521,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1410004001}
   - component: {fileID: 1410004003}
+  - component: {fileID: 1410004005}
+  - component: {fileID: 1410004004}
+  - component: {fileID: 1410004002}
   m_Layer: 5
   m_Name: Content Space
   m_TagString: SpaceGroup
@@ -1544,9 +1547,41 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 53.141205, y: 0}
+  m_AnchoredPosition: {x: -0.000034332275, y: 0}
   m_SizeDelta: {x: 879, y: 701.0923}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1410004002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410004000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b33b2e663e78774c9f0c9af55018725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_improveResolution: 0
+  m_Resolution: 0
+  m_useNativeSize: 0
+  m_points: []
+  lineThickness: 5
+  relativeSize: 0
+  lineList: 1
+  lineCaps: 0
+  bezierSegmentsPerCurve: 10
+  LineJoins: 0
+  BezierMode: 0
+  drivenExternally: 0
 --- !u!114 &1410004003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1562,6 +1597,26 @@ MonoBehaviour:
   delta: 100
   VerticalScrollbar: {fileID: 223060038}
   HorizontalScrollbar: {fileID: 1164535737}
+--- !u!222 &1410004004
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410004000}
+  m_CullTransparentMesh: 0
+--- !u!114 &1410004005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410004000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95a123b981e6124d9e9f3b7e6104967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1460001734
 GameObject:
   m_ObjectHideFlags: 0

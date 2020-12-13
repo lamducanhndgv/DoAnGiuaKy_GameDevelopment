@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI.Extensions;
 using Constants;
 
 public class StateManager : MonoBehaviour
@@ -73,24 +74,30 @@ public class StateManager : MonoBehaviour
     private GameObject _ConstructLine(string name="undefined")
     {
         GameObject line = new GameObject(name);
-        line.AddComponent<LineRenderer>();
+
+        // line.AddComponent<LineRenderer>();
+        line.AddComponent<UILineRenderer>();
         line.AddComponent<lr_LineController>();
+
         line.AddComponent<RectTransform>();
 
         // Set localScale 
         RectTransform rec = line.GetComponent<RectTransform>();
-        rec.localScale = new Vector3(1, 1, 1);
-
+        
+        
         // Set width of line
-        line.GetComponent<LineRenderer>().startWidth = 0.1f;
-        line.GetComponent<LineRenderer>().endWidth = 0.1f;
+        //line.GetComponent<LineRenderer>().startWidth = 0.1f;
+        //line.GetComponent<LineRenderer>().endWidth = 0.1f;
 
-        line.GetComponent<LineRenderer>().startColor = new Color(255, 255, 255);
-        line.GetComponent<LineRenderer>().endColor = new Color(255, 255, 255);
+        //line.GetComponent<LineRenderer>().startColor = new Color(255, 255, 255);
+        //line.GetComponent<LineRenderer>().endColor = new Color(255, 255, 255);
 
         line.transform.SetParent(ContentSpace.instance.transform);
+        rec.sizeDelta = ContentSpace.instance.MyRect.sizeDelta;
+        rec.localScale = new Vector3(1, 1, 1);
 
-        rec.anchoredPosition3D = new Vector3(rec.anchoredPosition3D.x, rec.anchoredPosition3D.y, -10f);
+
+        rec.anchoredPosition3D = ContentSpace.instance.MyRect.anchoredPosition3D; // new Vector3(rec.anchoredPosition3D.x, rec.anchoredPosition3D.y, -10f);
         return line;
     }
     private void _RemoveLine(DragAndDropItem layer)

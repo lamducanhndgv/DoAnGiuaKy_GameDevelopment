@@ -24,8 +24,10 @@ public static class LineHelper
 
     public static bool IsOk()
     {
-        if (first.children == second || second.children == first) return false;
-        if (first.ancestor != null || second.children != null) return false;
+        if (first.children == second || second.children == first)
+            return false;
+        if (first.ancestor != null || second.children != null) 
+            return false;
 
         return true;
     }
