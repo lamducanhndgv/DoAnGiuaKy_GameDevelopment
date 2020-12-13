@@ -20,7 +20,14 @@ public class ScriptWriter : MonoBehaviour
         Instance = this;
     }
 
-
+    public void CopyToClipboard(List<DragAndDropItem> layers)
+    {
+        string str = "";
+        str += this.header()+ "\n";
+        str += this.init(layers) +"\n";
+        str += this.forward(layers);
+        GUIUtility.systemCopyBuffer = str;
+    }
 
     public void WriteToFile(List<DragAndDropItem> layers)
     {
