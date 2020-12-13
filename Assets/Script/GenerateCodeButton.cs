@@ -12,6 +12,7 @@ public class GenerateCodeButton : MonoBehaviour
     {
         button.onClick.AddListener(() => {
             List<DragAndDropItem> result = CollectInfo();
+            ScriptWriter.Instance.CopyToClipboard(result);
             ScriptWriter.Instance.WriteToFile(result);
         });
     }
